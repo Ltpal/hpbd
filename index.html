@@ -2,20 +2,19 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🌸 Chúc Mừng Sinh Nhật 🌸</title>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-/* GIỮ NGUYÊN CSS CỦA BẠN */
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-body{width:100vw;height:100vh;overflow:hidden;font-family:'Quicksand',sans-serif;background:#050010;cursor:default;touch-action:none;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:100vw;height:100vh;overflow:hidden;font-family:'Quicksand',sans-serif;background:#050010;cursor:default;}
 canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
 #bgCanvas{z-index:0;}
 #fxCanvas{z-index:2;pointer-events:none;}
 
 .page{position:fixed;top:0;left:0;width:100%;height:100%;z-index:10;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity 0.8s ease;will-change: opacity;}
+  opacity:0;pointer-events:none;transition:opacity 0.8s ease;}
 .page.active{opacity:1;pointer-events:all;}
 
 .glass-card{
@@ -26,31 +25,81 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
   box-shadow:0 8px 40px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.25);
   max-width:90vw;width:480px;
   animation:cardFloat 4s ease-in-out infinite;
-  will-change: transform;
 }
 @keyframes cardFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 
 .display-title{font-family:'Dancing Script',cursive;font-size:clamp(2rem,5vw,3rem);
-  color:#fff;text-shadow:0 0 30px rgba(255,180,230,0.9);
+  color:#fff;text-shadow:0 0 30px rgba(255,180,230,0.9),0 0 60px rgba(255,120,200,0.5);
   margin-bottom:16px;line-height:1.2;}
-.question-text{font-size:1.1rem;color:rgba(255,255,255,0.9);margin:16px 0 28px;line-height:1.6;}
+.question-text{font-size:1.1rem;color:rgba(255,255,255,0.9);margin:16px 0 28px;
+  line-height:1.6;font-weight:400;}
 .congrats-msg{font-family:'Dancing Script',cursive;font-size:clamp(1.2rem,3vw,1.8rem);
   color:#ffe0f5;text-shadow:0 0 20px rgba(255,150,220,0.9);text-align:center;
   margin:16px 20px;opacity:0;transform:translateY(20px);
   transition:opacity 0.8s ease,transform 0.8s ease;}
 .congrats-msg.show{opacity:1;transform:translateY(0);}
 
+/* CÁC NÚT BẤM */
 .btn{display:inline-block;padding:14px 32px;margin:8px;border:none;border-radius:50px;
   cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:700;font-size:1rem;
   transition:all 0.3s ease;position:relative;overflow:hidden;letter-spacing:0.5px;}
+.btn::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;
+  background:rgba(255,255,255,0.25);border-radius:50%;transform:translate(-50%,-50%);
+  transition:width 0.4s,height 0.4s,opacity 0.4s;opacity:0;}
+.btn:active::after{width:200px;height:200px;opacity:1;}
 .btn:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,0.4);}
-.btn-pink{background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff;}
-.btn-gold{background:linear-gradient(135deg,#f6d365,#fda085);color:#5a2007;}
-.btn-teal{background:linear-gradient(135deg,#4facfe,#00f2fe);color:#003a5a;}
+.btn:active{transform:translateY(0);}
+.btn-pink{background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff;
+  box-shadow:0 4px 20px rgba(245,87,108,0.4);}
+.btn-gold{background:linear-gradient(135deg,#f6d365,#fda085);color:#5a2007;
+  box-shadow:0 4px 20px rgba(253,160,133,0.4);}
+.btn-teal{background:linear-gradient(135deg,#4facfe,#00f2fe);color:#003a5a;
+  box-shadow:0 4px 20px rgba(79,172,254,0.4);}
 .btn-sparkle{background:linear-gradient(135deg,#a18cd1,#fbc2eb,#ffeaa7,#a18cd1);
   background-size:300% 300%;animation:sparkleShift 3s ease infinite;color:#3a0050;
-  font-size:1.1rem;padding:16px 40px;}
+  font-size:1.1rem;padding:16px 40px;box-shadow:0 4px 30px rgba(161,140,209,0.6);}
 @keyframes sparkleShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.btn-group{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:8px;}
+
+/* NÚT HOME */
+.btn-home-wrap {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-home-wrap.show {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+.btn-home {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-home:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+}
+.btn-home:active { transform: translateY(0) scale(0.95); }
 
 #transitionOverlay{position:fixed;top:0;left:0;width:100%;height:100%;
   background:radial-gradient(ellipse at center,#1a0040,#050010);
@@ -60,22 +109,156 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
 #customAlert{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);
   z-index:500;transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);width:380px;max-width:90vw;}
 #customAlert.show{transform:translate(-50%,-50%) scale(1);}
+#customAlert .alert-icon{font-size:2.5rem;margin-bottom:12px;}
+#customAlert .alert-msg{font-size:1.1rem;color:#fff;margin-bottom:20px;line-height:1.5;}
 
-.bottom-decor{position:fixed;bottom:0;left:0;right:0;height:130px;z-index:6;pointer-events:none;}
-.flower-row, .clover-row{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:flex-end;justify-content:space-around;}
-.flower-wrap, .clover-row > div {cursor: pointer; pointer-events: all;}
+.bottom-decor{position:fixed;bottom:0;left:0;right:0;height:130px;z-index:15;pointer-events:none;}
+.flower-row{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:flex-end;justify-content:space-around;}
+.flower-wrap{display:flex;flex-direction:column;align-items:center;}
+.flower-svg{animation:flowerSway 3s ease-in-out infinite;transform-origin:bottom center;}
+@keyframes flowerSway{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}
+
+.flower-wrap, .clover-row > div { cursor: pointer; pointer-events: all; }
+.flower-wrap:active svg, .clover-row > div:active svg {
+  transform: scale(1.4) !important; filter: brightness(1.5) drop-shadow(0 0 8px #fff); transition: transform 0.1s, filter 0.1s;
+}
+@keyframes flowerPop {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.5) rotate(15deg); filter: brightness(1.6) drop-shadow(0 0 10px #ffcce0); }
+  60%  { transform: scale(0.9) rotate(-8deg); }
+  100% { transform: scale(1) rotate(0deg); filter: none; }
+}
+.flower-pop { animation: flowerPop 0.45s forwards !important; }
+
+@keyframes armSwingL{0%,100%{transform:rotate(-20deg);}50%{transform:rotate(20deg);}}
+@keyframes armSwingR{0%,100%{transform:rotate(20deg);}50%{transform:rotate(-20deg);}}
+@keyframes legSwingL{0%,100%{transform:rotate(-15deg);}50%{transform:rotate(15deg);}}
+@keyframes legSwingR{0%,100%{transform:rotate(15deg);}50%{transform:rotate(-15deg);}}
 
 .next-btn-wrap{position:fixed;bottom:160px;right:60px;z-index:30;opacity:0;
   transform:scale(0) rotate(-10deg);transition:all 0.6s cubic-bezier(0.34,1.56,0.64,1);}
 .next-btn-wrap.show{opacity:1;transform:scale(1) rotate(0deg);}
 
 .bd-header{position:fixed;top:40px;left:0;right:0;text-align:center;z-index:20;pointer-events:none;}
-.bd-header h1{font-family:'Dancing Script',cursive;font-size:clamp(1.8rem,5vw,3rem);color:#fff;text-shadow:0 0 30px rgba(255,200,100,0.9);}
+.bd-header h1{font-family:'Dancing Script',cursive;font-size:clamp(1.8rem,5vw,3rem);
+  color:#fff;text-shadow:0 0 30px rgba(255,200,100,0.9),0 0 60px rgba(255,150,50,0.5);}
+.bd-header p{font-size:1rem;color:rgba(255,230,180,0.9);margin-top:8px;}
+
+/* ============================================================
+   GUEST PAGE CSS 
+   ============================================================ */
+#page-guest .guest-top{position:fixed;top:0;left:0;right:0;text-align:center;padding:24px;z-index:20;
+  background:linear-gradient(to bottom,rgba(5,0,16,0.8),transparent);pointer-events:none;}
+#page-guest .guest-top p{font-family:'Dancing Script',cursive;font-size:clamp(0.9rem,2.5vw,1.3rem);
+  color:#fff;text-shadow:0 0 20px rgba(255,180,230,0.8);line-height:1.6;}
+.guest-halves{display:flex;width:100%;height:100%;position:relative;}
+.guest-half{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;position:relative;}
+.guest-half h2{font-family:'Dancing Script',cursive;font-size:2rem;color:#fff;
+  text-shadow:0 0 20px rgba(255,180,230,0.8);margin-bottom:12px;}
+.guest-divider{width:2px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.4),transparent);
+  height:70%;align-self:center;flex-shrink:0;}
+.guest-glass{background:rgba(255,255,255,0.08);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:24px 28px;
+  width:100%;max-width:340px;text-align:center;}
+.guest-glass p{color:rgba(255,255,255,0.85);font-size:0.9rem;line-height:1.5;}
+.guest-btn-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px;}
+.guest-btn{padding:10px 18px;font-size:0.85rem;margin:0;}
+
+.guest-avatar {
+  width: 90px; height: 90px; border-radius: 50%; margin-bottom: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.5); overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  cursor: pointer; 
+  /* pointer-events: all; */
+}
+.guest-avatar img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.ha-avatar:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6), 0 0 25px rgba(255,182,193,0.8);
+  border-color: rgba(255,182,193,1);
+}
+.giang-avatar:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6), 0 0 25px rgba(255,228,160,0.8);
+  border-color: rgba(255,228,160,1);
+}
+
+/* ============================================================
+   HIỆU ỨNG VÒNG QUAY 3D
+   ============================================================ */
+.carousel-scene {
+  position: absolute; top: 55%; left: 50%;
+  transform: translate(-50%, -50%) rotateX(-5deg); 
+  width: 220px; height: 330px; perspective: 1200px; z-index: 15;
+}
+.carousel-container {
+  width: 100%; height: 100%; position: relative;
+  transform-style: preserve-3d; animation: spin3D 18s infinite linear;
+}
+.carousel-scene:hover .carousel-container { animation-play-state: paused; }
+
+.carousel-item {
+  position: absolute; top: 0; left: 0; width: 220px; height: 330px;
+  border-radius: 16px; overflow: hidden; border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 180, 230, 0.3);
+  transform: rotateY(calc(var(--i) * 72deg)) translateZ(280px);
+  background: rgba(255, 255, 255, 0.1);
+  transition: scale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease, opacity 0.3s;
+  cursor: pointer; 
+  /* pointer-events: all; */
+}
+.carousel-item img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+/* Thu Hà: Glow Pink Pastel */
+.carousel-ha .carousel-item:hover, .carousel-ha .carousel-item:active {
+  scale: 1.15;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 182, 193, 0.9), 0 0 80px rgba(255, 182, 193, 0.6);
+  border-color: rgba(255, 182, 193, 1);
+}
+
+/* Hà Giang: Glow Gold/Yellow Pastel */
+.carousel-giang .carousel-item:hover, .carousel-giang .carousel-item:active {
+  scale: 1.15;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 228, 160, 0.9), 0 0 80px rgba(255, 228, 160, 0.6);
+  border-color: rgba(255, 228, 160, 1);
+}
+
+@keyframes spin3D { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
 
 @media(max-width:600px){
   .glass-card{padding:28px 20px;width:95vw;}
+  .btn{padding:12px 22px;font-size:0.9rem;}
+  .guest-halves{flex-direction:column;}
+  .guest-divider{width:80%;height:2px;align-self:center;margin: 10px 0;}
   .next-btn-wrap{right:20px;bottom:140px;}
+  .bd-header h1{font-size:1.5rem;}
+  
+  .carousel-scene { width: 150px; height: 225px; transform: translate(-50%, -50%) rotateX(-5deg); }
+  .carousel-item { width: 150px; height: 225px; transform: rotateY(calc(var(--i) * 72deg)) translateZ(180px); }
+  
+  .guest-avatar { width: 70px; height: 70px; margin-bottom: 8px; }
+  .guest-half h2 { font-size: 1.6rem; margin-bottom: 8px; }
+  .guest-glass { padding: 16px; }
+  .guest-glass p { font-size: 0.85rem; }
+  
+  /* Căn chỉnh nút Home trên điện thoại */
+  .btn-home-wrap { top: 16px; left: 16px; }
+  .btn-home { padding: 8px 16px; font-size: 0.85rem; }
 }
+
+/* Dodge button */
+.btn-dodge {
+  position: fixed !important; z-index: 200 !important; cursor: not-allowed !important;
+  transition: left 0.22s cubic-bezier(0.25,1.5,0.5,1), top 0.22s cubic-bezier(0.25,1.5,0.5,1) !important;
+  pointer-events: all !important;
+}
+.btn-dodge::before {
+  content: '🏃'; position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 1.1rem;
+  animation: runnerBob 0.35s ease-in-out infinite alternate;
+}
+@keyframes runnerBob { from { transform: translateX(-50%) translateY(0); } to { transform: translateX(-50%) translateY(-4px); } }
 </style>
 </head>
 <body>
@@ -86,15 +269,23 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
 
 <div id="customAlert">
   <div class="glass-card" style="width:100%">
-    <div style="font-size:2.5rem;margin-bottom:12px;" id="alertIcon">💕</div>
-    <div style="font-size:1.1rem;color:#fff;margin-bottom:20px;line-height:1.5;" id="alertMsg">Bạn chắc chưa?</div>
-    <button class="btn btn-gold" onclick="alertMgr.close()">Ừ thì OK 💕</button>
+    <div class="alert-icon" id="alertIcon">💕</div>
+    <div class="alert-msg" id="alertMsg">Bạn chắc chưa?</div>
+    <button class="btn btn-gold" id="alertBtn" onclick="nextAlert()">Ừ thì OK 💕</button>
   </div>
 </div>
 
 <div class="next-btn-wrap" id="nextBtnWrap">
   <button class="btn btn-sparkle" id="nextBtn">✨ Nhấn vào đây! ✨</button>
 </div>
+
+<div class="btn-home-wrap" id="homeBtnWrap">
+  <button class="btn-home" onclick="app.goTo('home')">
+    🏠 Trang chủ
+  </button>
+</div>
+
+<div class="bottom-decor" id="global-decor"></div>
 
 <div class="page active" id="page-home">
   <div class="glass-card">
@@ -114,11 +305,10 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
     <p class="question-text">Tèo có đẹp trai không? 🤔</p>
     <div class="btn-group">
       <button class="btn btn-gold" onclick="app.answerTeo('ha-giang', true)">😍 Tèo có đẹp trai!</button>
-      <button class="btn btn-pink" onclick="app.answerTeo('ha-giang', false)">😤 Tèo xấu hoắc</button>
+      <button class="btn btn-pink" id="hg-bad-btn" onclick="app.answerTeo('ha-giang', false)">😤 Tèo xấu hoắc</button>
     </div>
   </div>
   <p class="congrats-msg" id="hg-congrats">🎊 Chúc mừng bạn, câu trả lời chính xác! 🎊</p>
-  <div class="bottom-decor" id="hg-decor"></div>
 </div>
 
 <div class="page" id="page-thu-ha">
@@ -127,214 +317,929 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
     <p class="question-text">Tèo có đẹp trai không? 🤔</p>
     <div class="btn-group">
       <button class="btn btn-gold" onclick="app.answerTeo('thu-ha', true)">😍 Tèo có đẹp trai!</button>
-      <button class="btn btn-pink" onclick="app.answerTeo('thu-ha', false)">😤 Tèo xấu hoắc</button>
+      <button class="btn btn-pink" id="th-bad-btn" onclick="app.answerTeo('thu-ha', false)">😤 Tèo xấu hoắc</button>
     </div>
   </div>
   <p class="congrats-msg" id="th-congrats">🎊 Chúc mừng bạn, câu trả lời chính xác! 🎊</p>
-  <div class="bottom-decor" id="th-decor"></div>
 </div>
 
 <div class="page" id="page-birthday-giang">
   <div class="bd-header">
     <h1>🎂 Chúc Mừng Sinh Nhật Giang Còi! 🎂</h1>
-    <p style="color:#eee">🌟 Tuổi mới hay ăn chóng lớn! Wishing you the stars! 🌟</p>
+    <p>🌟 Tuổi mới hay ăn chóng lớn! Wishing you the stars! 🌟</p>
   </div>
-  <div class="bottom-decor" id="bdg-decor"></div>
+  <div class="carousel-scene">
+    <div class="carousel-container carousel-giang">
+      <div class="carousel-item" style="--i: 1;"><img src="https://picsum.photos/400/600?random=6" alt="Ảnh Giang 1"></div>
+      <div class="carousel-item" style="--i: 2;"><img src="https://picsum.photos/400/600?random=7" alt="Ảnh Giang 2"></div>
+      <div class="carousel-item" style="--i: 3;"><img src="https://picsum.photos/400/600?random=8" alt="Ảnh Giang 3"></div>
+      <div class="carousel-item" style="--i: 4;"><img src="https://picsum.photos/400/600?random=9" alt="Ảnh Giang 4"></div>
+      <div class="carousel-item" style="--i: 5;"><img src="https://picsum.photos/400/600?random=10" alt="Ảnh Giang 5"></div>
+    </div>
+  </div>
 </div>
 
 <div class="page" id="page-birthday-thuha">
   <div class="bd-header">
     <h1>🎂 Chúc Mừng Sinh Nhật Thu Hà! 🎂</h1>
-    <p style="color:#eee">🌸 Tuổi mới xinh đẹp, hạnh phúc và thành công! 🌸</p>
+    <p>🌸 Tuổi mới xinh đẹp, hạnh phúc và thành công! 🌸</p>
   </div>
-  <div class="bottom-decor" id="bdth-decor"></div>
+  <div class="carousel-scene">
+    <div class="carousel-container carousel-ha">
+      <div class="carousel-item" style="--i: 1;"><img src="https://picsum.photos/400/600?random=1" alt="Ảnh Hà 1"></div>
+      <div class="carousel-item" style="--i: 2;"><img src="https://picsum.photos/400/600?random=2" alt="Ảnh Hà 2"></div>
+      <div class="carousel-item" style="--i: 3;"><img src="https://picsum.photos/400/600?random=3" alt="Ảnh Hà 3"></div>
+      <div class="carousel-item" style="--i: 4;"><img src="https://picsum.photos/400/600?random=4" alt="Ảnh Hà 4"></div>
+      <div class="carousel-item" style="--i: 5;"><img src="https://picsum.photos/400/600?random=5" alt="Ảnh Hà 5"></div>
+    </div>
+  </div>
 </div>
 
 <div class="page" id="page-guest">
-  <div style="position:fixed;top:20px;text-align:center;width:100%;color:#fff;padding:10px;">
-    <p>🌟 Cùng chúc mừng <strong>Thị Thu Hà</strong> & <strong>Thị Hà Giang</strong>! 🌟</p>
+  <div class="guest-top">
+    <p>🌟 Cảm ơn mọi người đã cùng chúc mừng sinh nhật của hai người xinh đẹp nhất hôm nay:<br>
+    <strong style="color:#ffd6f0;">Thị Thu Hà</strong> và <strong style="color:#ffe4a0;">Thị Hà Giang</strong>! 🌟</p>
   </div>
-  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:20px;">
-     <div class="glass-card" style="width:300px;padding:20px;">
-        <h3>💖 Thu Hà</h3>
-        <button class="btn btn-pink" onclick="app.goTo('thu-ha')">Vào xem ✨</button>
-     </div>
-     <div class="glass-card" style="width:300px;padding:20px;">
-        <h3>🌟 Hà Giang</h3>
-        <button class="btn btn-gold" onclick="app.goTo('ha-giang')">Vào xem ✨</button>
-     </div>
+  <div class="guest-halves">
+    <div class="guest-half">
+      <h2>💖 Thu Hà</h2>
+      <div class="guest-avatar ha-avatar">
+        <img src="https://picsum.photos/400/400?random=11" alt="Thu Hà">
+      </div>
+      <div class="guest-glass">
+        <p>Chúc Thu Hà sinh nhật vui vẻ, luôn xinh đẹp và rạng rỡ như ánh sao trời! 🌸</p>
+        <div class="guest-btn-row">
+          <button class="btn btn-pink guest-btn" onclick="app.goTo('thu-ha')">Trang Thu Hà ✨</button>
+          <button class="btn btn-gold guest-btn" onclick="app.goTo('birthday-thuha')">🎂 Sinh nhật</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="guest-divider"></div>
+    
+    <div class="guest-half">
+      <h2>🌟 Hà Giang</h2>
+      <div class="guest-avatar giang-avatar">
+        <img src="https://picsum.photos/400/400?random=12" alt="Hà Giang">
+      </div>
+      <div class="guest-glass">
+        <p>Chúc Hà Giang sinh nhật thật hạnh phúc, tuổi mới hay ăn chóng lớn nhé! 🌙</p>
+        <div class="guest-btn-row">
+          <button class="btn btn-teal guest-btn" onclick="app.goTo('ha-giang')">Trang Hà Giang ✨</button>
+          <button class="btn btn-pink guest-btn" onclick="app.goTo('birthday-giang')">🎂 Sinh nhật</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="bottom-decor" id="guest-decor"></div>
 </div>
 
 <script>
 /* ============================================================
-   TỐI ƯU HÓA ENGINE (OBJECT POOLING)
+   PERFORMANCE: Detect low-end device
+   ============================================================ */
+const isLowEnd = navigator.hardwareConcurrency <= 4 || 
+                 /Android|iPhone|iPad/i.test(navigator.userAgent);
+const PERF = {
+  starCount:        isLowEnd ? 150 : 300,   // ✅ Tăng số lượng sao
+  shootingStarCountMax: isLowEnd ? 3 : 6, // ✅ Giới hạn số sao băng
+  shootingStarAppearProb: isLowEnd ? 0.005 : 0.012, // ✅ Tần suất sao băng
+  ambientProb:      isLowEnd ? 0.015: 0.035, // Giữ sparkles trôi nổi
+
+  heartBurstPts:    isLowEnd ? 18  : 36,    
+  burstSparkles:    isLowEnd ? 6   : 12,    
+  flowerHeartCount: isLowEnd ? 2   : 3,     
+  flowerBurstPts:   isLowEnd ? 14  : 24,    
+  flowerSparkles:   isLowEnd ? 5   : 10,    
+  bdRocketCount:    isLowEnd ? 5   : 8,     
+  bdBurstPts:       isLowEnd ? 20  : 35,    
+  centerBurstPts:   isLowEnd ? 20  : 35,    
+  heartLaunchCount: isLowEnd ? 4   : 5,     
+  stickMax:         isLowEnd ? 7   : 12,    
+};
+
+/* ============================================================
+   GALAXY BACKGROUND ENGINE
    ============================================================ */
 const bgCanvas = document.getElementById('bgCanvas');
-const bgCtx = bgCanvas.getContext('2d', { alpha: false });
+const bgCtx = bgCanvas.getContext('2d');
 const fxCanvas = document.getElementById('fxCanvas');
 const fxCtx = fxCanvas.getContext('2d');
 
-let width, height;
-function resize() {
-  width = bgCanvas.width = fxCanvas.width = window.innerWidth;
-  height = bgCanvas.height = fxCanvas.height = window.innerHeight;
+function resizeCanvases() {
+  bgCanvas.width = fxCanvas.width = window.innerWidth;
+  bgCanvas.height = fxCanvas.height = window.innerHeight;
 }
-window.addEventListener('resize', resize);
-resize();
+resizeCanvases();
+window.addEventListener('resize', () => { resizeCanvases(); galaxy.init(); });
 
-// Pool để tái sử dụng hạt - Tránh lag RAM
-const particlePool = [];
-const activeParticles = [];
-function getParticle(x, y, opts) {
-  let p = particlePool.length > 0 ? particlePool.pop() : {};
-  p.x = x; p.y = y;
-  p.vx = opts.vx || 0; p.vy = opts.vy || 0;
-  p.r = opts.r || 3; p.color = opts.color || '#fff';
-  p.alpha = 1; p.decay = opts.decay || 0.02;
-  p.gravity = opts.gravity || 0;
-  p.isHeart = opts.isHeart || false;
-  p.active = true;
-  activeParticles.push(p);
-  return p;
-}
+class GalaxyEngine {
+  constructor() {
+    this.stars = [];
+    this.nebulae = [];
+    this.shootingStars = []; // ✅ Mảng các sao băng
+    this.time = 0;
+    this.mouse = { x: bgCanvas.width / 2, y: bgCanvas.height / 2 };
+    this.init();
+    window.addEventListener('mousemove', e => {
+      this.mouse.x = e.clientX;
+      this.mouse.y = e.clientY;
+    });
+  }
 
-/* --- GALAXY ENGINE TỐI ƯU --- */
-const stars = Array.from({ length: 150 }, () => ({
-  x: Math.random() * 2000, y: Math.random() * 2000,
-  r: Math.random() * 1.5, s: Math.random() * 0.02
-}));
+  init() {
+    const W = bgCanvas.width, H = bgCanvas.height;
+    this.stars = [];
+    const colors = ['#ffffff','#ffe8f5','#ffd6f0','#e8d6ff','#d6eeff','#fff5d6','#d6ffe8'];
+    for (let i = 0; i < PERF.starCount; i++) {
+      this.stars.push({
+        x: Math.random() * W, y: Math.random() * H,
+        r: Math.random() * 2.2 + 0.3, // ✅ Tăng nhẹ phạm vi kích thước
+        twinkleSpeed: Math.random() * 0.06 + 0.01, // ✅ Tinh chỉnh tốc độ lấp lánh
+        twinkleOffset: Math.random() * Math.PI * 2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        layer: Math.random() * 3 | 0,
+        hasGlow: Math.random() < (isLowEnd ? 0.05 : 0.1) // ✅ Chỉ ~10% sao lớn có bóng mờ
+      });
+    }
+    this.nebulae = [
+      { x: W * 0.2, y: H * 0.3, rx: W * 0.35, ry: H * 0.3, c1: 'rgba(180,100,220,0.10)', c2: 'rgba(180,100,220,0)' },
+      { x: W * 0.75, y: H * 0.6, rx: W * 0.4, ry: H * 0.35, c1: 'rgba(100,150,255,0.08)', c2: 'rgba(100,150,255,0)' },
+    ];
+    this.shootingStars = [];
+  }
 
-function drawGalaxy() {
-  bgCtx.fillStyle = '#050010';
-  bgCtx.fillRect(0, 0, width, height);
-  bgCtx.fillStyle = '#fff';
-  const time = Date.now() * 0.001;
-  stars.forEach(s => {
-    bgCtx.globalAlpha = 0.4 + Math.abs(Math.sin(time + s.x)) * 0.6;
-    bgCtx.beginPath();
-    bgCtx.arc(s.x % width, s.y % height, s.r, 0, Math.PI * 2);
-    bgCtx.fill();
-  });
-}
+  draw() {
+    const W = bgCanvas.width, H = bgCanvas.height;
+    this.time += 0.016;
 
-/* --- FIREWORKS & HEARTS --- */
-function burstHeart(x, y, color) {
-  for (let i = 0; i < 40; i++) {
-    const t = (i / 40) * Math.PI * 2;
-    const hx = 16 * Math.pow(Math.sin(t), 3);
-    const hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-    getParticle(x, y, {
-      vx: hx * 0.2, vy: hy * 0.2,
-      color: color, isHeart: true, decay: 0.015, gravity: 0.05
+    const bg = bgCtx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#06001a');
+    bg.addColorStop(0.4, '#0a0020');
+    bg.addColorStop(0.7, '#08001c');
+    bg.addColorStop(1, '#050012');
+    bgCtx.fillStyle = bg;
+    bgCtx.fillRect(0, 0, W, H);
+
+    this.nebulae.forEach(n => {
+      const grad = bgCtx.createRadialGradient(n.x, n.y, 0, n.x, n.y, Math.max(n.rx, n.ry));
+      grad.addColorStop(0, n.c1);
+      grad.addColorStop(1, n.c2);
+      bgCtx.save();
+      bgCtx.scale(1, n.ry / n.rx);
+      bgCtx.fillStyle = grad;
+      bgCtx.beginPath();
+      bgCtx.arc(n.x, n.y * (n.rx / n.ry), n.rx, 0, Math.PI * 2);
+      bgCtx.fill();
+      bgCtx.restore();
+    });
+
+    const mx = (this.mouse.x / W - 0.5) * 0.02;
+    const my = (this.mouse.y / H - 0.5) * 0.02;
+
+    // Phân loại sao để vẽ tối ưu
+    const glowStars = [];
+    const normalStars = [];
+    this.stars.forEach(s => (s.hasGlow ? glowStars : normalStars).push(s));
+    
+    // 1. Vẽ sao thường (không save/restore, không bóng mờ - rất nhanh)
+    normalStars.forEach(s => {
+      const twine = 0.5 + 0.5 * (0.5 + 0.5 * Math.sin(this.time * s.twinkleSpeed * 60 + s.twinkleOffset));
+      const px = s.x + mx * (s.layer + 1) * 8;
+      const py = s.y + my * (s.layer + 1) * 8;
+      bgCtx.globalAlpha = twine; // Lấp lánh hơn
+      bgCtx.fillStyle = s.color;
+      bgCtx.beginPath();
+      bgCtx.arc(px, py, s.r * twine, 0, Math.PI * 2);
+      bgCtx.fill();
+    });
+    bgCtx.globalAlpha = 1; // reset alpha
+
+    // 2. Vẽ sao có bóng (chỉ save/restore cho 10% sao lớn - đảm bảo hiệu năng)
+    glowStars.forEach(s => {
+      const twine = 0.5 + 0.5 * (0.5 + 0.5 * Math.sin(this.time * s.twinkleSpeed * 60 + s.twinkleOffset));
+      const px = s.x + mx * (s.layer + 1) * 8;
+      const py = s.y + my * (s.layer + 1) * 8;
+      bgCtx.save();
+      bgCtx.shadowBlur = 5;
+      bgCtx.shadowColor = s.color;
+      bgCtx.globalAlpha = twine;
+      bgCtx.fillStyle = s.color;
+      bgCtx.beginPath();
+      bgCtx.arc(px, py, s.r * twine, 0, Math.PI * 2);
+      bgCtx.fill();
+      bgCtx.restore();
+    });
+
+    // ✅ Logic thêm nhiều sao băng đồng thời
+    if (Math.random() < PERF.shootingStarAppearProb && this.shootingStars.length < PERF.shootingStarCountMax) {
+      this.shootingStars.push({
+        x: Math.random() * W * 0.5,
+        y: Math.random() * H * 0.5,
+        vx: 4 + Math.random() * 5, // Di chuyển nhanh hơn
+        vy: 2 + Math.random() * 4,
+        life: 1,
+        color: Math.random() < 0.2 ? '#ffe0f0' : '#ffffff' // Màu mờ dần
+      });
+    }
+
+    // Vẽ và cập nhật tất cả sao băng trong mảng
+    this.shootingStars = this.shootingStars.filter(ss => ss.life > 0);
+    this.shootingStars.forEach(ss => {
+      bgCtx.save();
+      bgCtx.globalAlpha = ss.life;
+      bgCtx.strokeStyle = ss.color;
+      bgCtx.lineWidth = 1.5;
+      bgCtx.beginPath();
+      bgCtx.moveTo(ss.x, ss.y);
+      bgCtx.lineTo(ss.x - ss.vx * 15, ss.y - ss.vy * 15);
+      bgCtx.stroke();
+      bgCtx.restore();
+      
+      ss.x += ss.vx;
+      ss.y += ss.vy;
+      ss.life -= 0.03; // Sao băng nhanh hơn
     });
   }
 }
 
+const galaxy = new GalaxyEngine();
+
 /* ============================================================
-   APP LOGIC (GIỮ NGUYÊN KỊCH BẢN CỦA BẠN)
+   PARTICLE ENGINE
    ============================================================ */
-const alertMgr = {
-  el: document.getElementById('customAlert'),
-  show(msg, icon) {
-    document.getElementById('alertMsg').textContent = msg;
-    document.getElementById('alertIcon').textContent = icon;
-    this.el.classList.add('show');
-  },
-  close() { this.el.classList.remove('show'); }
-};
+class Particle {
+  constructor(x, y, opts = {}) {
+    this.x = x; this.y = y;
+    this.vx = opts.vx || 0;
+    this.vy = opts.vy || 0;
+    this.r = opts.r || 3;
+    this.color = opts.color || '#fff';
+    this.alpha = opts.alpha || 1;
+    this.decay = opts.decay || 0.018;
+    this.gravity = opts.gravity || 0;
+    this.shrink = opts.shrink || 0;
+    this.isHeart = opts.isHeart || false;
+    this.heartAngle = opts.heartAngle || 0;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += this.gravity;
+    this.vx *= 0.98;
+    this.alpha -= this.decay;
+    this.r -= this.shrink;
+    if (this.r < 0) this.r = 0;
+  }
+  draw(ctx) {
+    if (this.alpha <= 0 || this.r <= 0) return;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, this.alpha);
+    if (this.isHeart) {
+      ctx.fillStyle = this.color;
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.heartAngle);
+      const s = this.r * 0.7;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(-s*2, -s*2, -s*4, s, 0, s*3);
+      ctx.bezierCurveTo(s*4, s, s*2, -s*2, 0, 0);
+      ctx.fill();
+    } else {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+  isDead() { return this.alpha <= 0 || this.r <= 0; }
+}
 
-const app = {
-  alertIndex: { 'ha-giang': 0, 'thu-ha': 0 },
+class ParticleSystem {
+  constructor() { this.particles = []; }
+  add(p) {
+    if (this.particles.length < 300) this.particles.push(p);
+  }
+  update() { this.particles.forEach(p => p.update()); this.particles = this.particles.filter(p => !p.isDead()); }
+  draw(ctx) { this.particles.forEach(p => p.draw(ctx)); }
+  clear() { this.particles = []; }
+}
+
+const ps = new ParticleSystem();
+
+/* ============================================================
+   HEART FIREWORKS
+   ============================================================ */
+class HeartRocket {
+  constructor(x, y, targetY) {
+    this.x = x; this.y = y;
+    this.vy = -10 - Math.random() * 4;
+    this.vx = (Math.random() - 0.5) * 2;
+    this.targetY = targetY;
+    this.color = `hsl(${Math.random()*60+320},100%,${60+Math.random()*20}%)`;
+    this.alive = true;
+    this.trail = [];
+  }
+  update() {
+    this.trail.push({ x: this.x, y: this.y });
+    if (this.trail.length > 5) this.trail.shift();
+    this.x += this.vx; this.y += this.vy; this.vy += 0.15;
+    if (this.y <= this.targetY) { this.burst(); this.alive = false; }
+  }
+  burst() {
+    const heartPts = PERF.heartBurstPts;
+    const scale = 4 + Math.random() * 3;
+    for (let i = 0; i < heartPts; i++) {
+      const t = (i / heartPts) * Math.PI * 2;
+      const hx = 16 * Math.pow(Math.sin(t), 3);
+      const hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+      const speed = 0.5 + Math.random() * 0.8;
+      ps.add(new Particle(this.x, this.y, {
+        vx: (hx / 16) * speed * scale * 0.3,
+        vy: (hy / 16) * speed * scale * 0.3,
+        r: 3 + Math.random() * 2,
+        color: this.color,
+        alpha: 1, decay: 0.014, gravity: 0.05,
+        isHeart: true, heartAngle: Math.random() * Math.PI
+      }));
+    }
+    for (let i = 0; i < PERF.burstSparkles; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 4;
+      ps.add(new Particle(this.x, this.y, {
+        vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+        r: 2 + Math.random() * 2, color: '#fff',
+        alpha: 1, decay: 0.028, gravity: 0.05
+      }));
+    }
+    audio.playFirework();
+  }
+  draw(ctx) {
+    ctx.save();
+    for (let i = 0; i < this.trail.length; i++) {
+      ctx.globalAlpha = (i / this.trail.length) * 0.4;
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.trail[i].x, this.trail[i].y, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+const rockets = [];
+
+function launchHeartFireworks(fromY, count = 4) {
+  const W = fxCanvas.width, H = fxCanvas.height;
+  const n = Math.min(count, PERF.heartLaunchCount);
+  for (let i = 0; i < n; i++) {
+    setTimeout(() => {
+      const x = W * 0.2 + Math.random() * W * 0.6;
+      const targetY = H * 0.15 + Math.random() * H * 0.35;
+       rockets.push(new HeartRocket(x, fromY, targetY));
+    }, i * 280 + Math.random() * 100);
+  }
+}
+
+/* ============================================================
+   SHOOT HEARTS FROM FLOWER
+   ============================================================ */
+function shootHeartsFrom(el) {
+  const svg = el.querySelector('svg');
+  if (svg) {
+    svg.classList.remove('flower-pop');
+    void svg.offsetWidth;
+    svg.classList.add('flower-pop');
+  }
+  audio.playSparkle();
+
+  const rect = el.getBoundingClientRect();
+  const fromX = rect.left + rect.width / 2;
+  const fromY = rect.top + rect.height * 0.3;
+
+  const heartColors = ['#ff6b9d','#ff8fab','#ffc0d9','#f472b6','#ec4899','#fb7185','#c084fc','#fbbf24'];
+
+  const count = PERF.flowerHeartCount;
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const color = heartColors[Math.floor(Math.random() * heartColors.length)];
+      const r = new HeartRocket(fromX, fromY, fromY - 160 - Math.random() * 160);
+      r.color = color;
+      r.burst = function() {
+        const n = PERF.flowerBurstPts;
+        for (let j = 0; j < n; j++) {
+          const t = (j / n) * Math.PI * 2;
+          const hx = 16 * Math.pow(Math.sin(t), 3);
+          const hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+          const speed = 0.6 + Math.random() * 1.4;
+          const scale = 2.5 + Math.random() * 2;
+          ps.add(new Particle(this.x, this.y, {
+            vx: (hx / 16) * speed * scale * 0.35,
+            vy: (hy / 16) * speed * scale * 0.35,
+            r: 2.5 + Math.random() * 2,
+            color: heartColors[Math.floor(Math.random() * heartColors.length)],
+            alpha: 1, decay: 0.016, gravity: 0.06,
+            isHeart: true, heartAngle: Math.random() * Math.PI
+          }));
+        }
+        for (let k = 0; k < PERF.flowerSparkles; k++) {
+          const angle = Math.random() * Math.PI * 2;
+          ps.add(new Particle(this.x, this.y, {
+            vx: Math.cos(angle) * (1 + Math.random() * 3),
+            vy: Math.sin(angle) * (1 + Math.random() * 3),
+            r: 1.5 + Math.random() * 2,
+            color: '#ffffff', alpha: 0.9, decay: 0.030, gravity: 0.03
+          }));
+        }
+        audio.playFirework();
+      };
+      rockets.push(r);
+    }, i * 100 + Math.random() * 60);
+  }
+}
+
+/* ============================================================
+   BOTTOM DECORATIONS
+   ============================================================ */
+function buildStickAndFlowers(container, colors = ['#ffd6f0','#d6f0ff','#fff0d6','#d6ffd6']) {
+  container.innerHTML = '';
+  const flowerRow = document.createElement('div');
+  flowerRow.className = 'flower-row';
+  const flowerCount = Math.ceil(window.innerWidth / 75);
+  for (let i = 0; i < flowerCount; i++) {
+    const delay = Math.random() * 2;
+    const wrap = document.createElement('div');
+    wrap.className = 'flower-wrap';
+    const color = colors[i % colors.length];
+    const centerColor = i % 3 === 0 ? '#fbbf24' : (i % 3 === 1 ? '#f472b6' : '#a78bfa');
+    wrap.innerHTML = `
+      <svg class="flower-svg" style="animation-delay:${delay}s;width:${45+Math.random()*20}px;height:${55+Math.random()*20}px;" viewBox="0 0 50 65">
+        ${[0,60,120,180,240,300].map(a =>
+          `<ellipse cx="25" cy="12" rx="7" ry="13" fill="${color}" opacity="0.9" transform="rotate(${a},25,25)"/>`
+        ).join('')}
+        <circle cx="25" cy="25" r="9" fill="${centerColor}" opacity="0.95"/>
+        <circle cx="25" cy="25" r="5" fill="rgba(255,255,255,0.5)"/>
+        <line x1="25" y1="34" x2="25" y2="65" stroke="#86efac" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="18" cy="52" rx="7" ry="4" fill="#86efac" opacity="0.7" transform="rotate(-30,18,52)"/>
+      </svg>`;
+    flowerRow.appendChild(wrap);
+    wrap.addEventListener('click', () => shootHeartsFrom(wrap));
+  }
+  container.appendChild(flowerRow);
+
+  const stickCount = Math.max(PERF.stickMax, Math.floor(window.innerWidth / 130));
+  for (let i = 0; i < stickCount; i++) {
+    const sc = colors[i % colors.length];
+    const delay = -Math.random() * 8;
+    const dur = 7 + Math.random() * 5;
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `position:absolute;bottom:62px;left:0;pointer-events:none;animation:stickWalk${i} ${dur}s ${delay}s linear infinite;`;
+    const styleEl = document.createElement('style');
+    const startDir = Math.random() > 0.5 ? 1 : -1;
+    const spreadOffset = Math.floor((i / stickCount) * window.innerWidth);
+    const startPos = startDir === 1
+      ? `${spreadOffset - 80}px`
+      : `${spreadOffset + 80}px`;
+    const endPos = startDir === 1
+      ? `${spreadOffset + window.innerWidth + 80}px`
+      : `${spreadOffset - window.innerWidth - 80}px`;
+    styleEl.textContent = `
+      @keyframes stickWalk${i} {
+        0%{transform:translateX(${startPos}) scaleX(${startDir});}
+        100%{transform:translateX(${endPos}) scaleX(${startDir});}
+      }`;
+    document.head.appendChild(styleEl);
+    wrapper.innerHTML = `
+      <svg viewBox="0 0 50 95" width="40" height="80">
+        <circle cx="25" cy="14" r="11" stroke="${sc}" stroke-width="2.5" fill="none" opacity="0.9"/>
+        <circle cx="21" cy="11" r="2" fill="${sc}" opacity="0.7"/>
+        <circle cx="29" cy="11" r="2" fill="${sc}" opacity="0.7"/>
+        <path d="M21 16 Q25 19 29 16" stroke="${sc}" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <line x1="25" y1="25" x2="25" y2="62" stroke="${sc}" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="25" y1="38" x2="10" y2="52" stroke="${sc}" stroke-width="2" stroke-linecap="round"
+          style="transform-origin:25px 38px;animation:armSwingL 0.6s ease-in-out infinite;animation-delay:${delay}s"/>
+        <line x1="25" y1="38" x2="40" y2="52" stroke="${sc}" stroke-width="2" stroke-linecap="round"
+          style="transform-origin:25px 38px;animation:armSwingR 0.6s ease-in-out infinite;animation-delay:${delay}s"/>
+        <line x1="25" y1="62" x2="14" y2="82" stroke="${sc}" stroke-width="2.5" stroke-linecap="round"
+          style="transform-origin:25px 62px;animation:legSwingL 0.6s ease-in-out infinite;animation-delay:${delay}s"/>
+        <line x1="25" y1="62" x2="36" y2="82" stroke="${sc}" stroke-width="2.5" stroke-linecap="round"
+          style="transform-origin:25px 62px;animation:legSwingR 0.6s ease-in-out infinite;animation-delay:${delay}s"/>
+      </svg>`;
+    container.appendChild(wrapper);
+  }
+}
+
+/* ============================================================
+   BIRTHDAY BOTTOM: CLOVERS
+   ============================================================ */
+function buildCloversAndFlowers(container) {
+  container.innerHTML = '';
+  const row = document.createElement('div');
+  row.className = 'clover-row';
+  const count = Math.ceil(window.innerWidth / 100);
+  for (let i = 0; i < count; i++) {
+    const delay = Math.random() * 2;
+    const size = 35 + Math.random() * 20;
+    const el = document.createElement('div');
+    el.style.cssText = `animation:cloverBob ${2+Math.random()}s ${delay}s ease-in-out infinite;display:flex;flex-direction:column;align-items:center;`;
+    const green = i % 3 === 0 ? '#4ade80' : (i % 3 === 1 ? '#34d399' : '#86efac');
+    if (i % 4 === 0) {
+      el.innerHTML = `
+        <svg viewBox="0 0 60 70" width="${size}" height="${size * 1.15}">
+          <ellipse cx="30" cy="16" rx="12" ry="16" fill="${green}" opacity="0.9"/>
+          <ellipse cx="44" cy="30" rx="16" ry="12" fill="${green}" opacity="0.85"/>
+          <ellipse cx="30" cy="44" rx="12" ry="16" fill="${green}" opacity="0.9"/>
+          <ellipse cx="16" cy="30" rx="16" ry="12" fill="${green}" opacity="0.85"/>
+          <circle cx="30" cy="30" r="8" fill="${green}"/>
+          <line x1="30" y1="46" x2="30" y2="70" stroke="#16a34a" stroke-width="3" stroke-linecap="round"/>
+        </svg>`;
+    } else {
+      const fc = ['#fcd34d','#fbbf24','#f59e0b'][i % 3];
+      el.innerHTML = `
+        <svg viewBox="0 0 50 65" width="${size}" height="${size * 1.2}">
+          ${[0,72,144,216,288].map(a =>
+            `<ellipse cx="25" cy="11" rx="6" ry="12" fill="${i%2===0?'#f9a8d4':'#c4b5fd'}" opacity="0.9" transform="rotate(${a},25,25)"/>`
+          ).join('')}
+          <circle cx="25" cy="25" r="9" fill="${fc}"/>
+          <line x1="25" y1="34" x2="25" y2="65" stroke="${green}" stroke-width="3" stroke-linecap="round"/>
+        </svg>`;
+    }
+    row.appendChild(el);
+    el.addEventListener('click', () => shootHeartsFrom(el));
+  }
+  container.appendChild(row);
+}
+
+/* ============================================================
+   BIRTHDAY FIREWORKS
+   ============================================================ */
+function launchBirthdayFireworks(fromY) {
+  const W = fxCanvas.width, H = fxCanvas.height;
+  const colors = ['#fbbf24','#f472b6','#60a5fa','#34d399','#a78bfa','#fb923c','#fff'];
+  let count = 0;
+  const interval = setInterval(() => {
+    if (count >= PERF.bdRocketCount) { clearInterval(interval); return; }
+    const x = W * 0.15 + Math.random() * W * 0.7;
+    const targetY = H * 0.1 + Math.random() * H * 0.45;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const r = new HeartRocket(x, fromY, targetY);
+    r.color = color;
+    r.burst = function() {
+      const n = PERF.bdBurstPts;
+      for (let i = 0; i < n; i++) {
+        const angle = (i / n) * Math.PI * 2;
+        const speed = 2 + Math.random() * 3;
+        ps.add(new Particle(this.x, this.y, {
+          vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+          r: 2 + Math.random() * 2.5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: 1, decay: 0.012, gravity: 0.04
+        }));
+      }
+      audio.playFirework();
+    };
+    rockets.push(r);
+    count++;
+  }, 550); 
+}
+
+/* ============================================================
+   AUDIO ENGINE
+   ============================================================ */
+class AudioEngine {
+  constructor() { this.ctx = null; this.ready = false; }
+  init() {
+    try {
+      this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+      this.ready = true;
+    } catch(e) {}
+  }
+  playSparkle() {
+    if (!this.ready) return;
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.connect(gain); gain.connect(this.ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1400, this.ctx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+      osc.start(); osc.stop(this.ctx.currentTime + 0.35);
+    } catch(e) {}
+  }
+  playFirework() {
+    if (!this.ready) return;
+    try {
+      const bufSize = Math.floor(this.ctx.sampleRate * 0.3);
+      const buf = this.ctx.createBuffer(1, bufSize, this.ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < bufSize; i++) d[i] = (Math.random()*2-1) * Math.exp(-i/(this.ctx.sampleRate*0.07));
+      const src = this.ctx.createBufferSource();
+      src.buffer = buf;
+      const gain = this.ctx.createGain();
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'bandpass'; filter.frequency.value = 800; filter.Q.value = 0.5;
+      src.connect(filter); filter.connect(gain); gain.connect(this.ctx.destination);
+      gain.gain.setValueAtTime(0.35, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.3);
+      src.start();
+    } catch(e) {}
+  }
+  playClick() {
+    if (!this.ready) return;
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.connect(gain); gain.connect(this.ctx.destination);
+      osc.frequency.setValueAtTime(523, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(784, this.ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.25);
+      osc.start(); osc.stop(this.ctx.currentTime + 0.25);
+    } catch(e) {}
+  }
+}
+const audio = new AudioEngine();
+
+/* ============================================================
+   ALERT MANAGER
+   ============================================================ */
+class AlertManager {
+  constructor() {
+    this.el = document.getElementById('customAlert');
+    this.msgEl = document.getElementById('alertMsg');
+    this.iconEl = document.getElementById('alertIcon');
+    this.onClose = null;
+  }
+  show(msg, icon, onClose) {
+    this.msgEl.textContent = msg;
+    this.iconEl.textContent = icon || '💕';
+    this.onClose = onClose || null;
+    this.el.classList.add('show'); // ✅ Đã SỬA LẠI: Dùng classList để không mất các class gốc
+    audio.playClick();
+  }
+  close() {
+    this.el.classList.remove('show'); // ✅ Đã SỬA LẠI
+    if (this.onClose) { this.onClose(); this.onClose = null; }
+  }
+}
+const alertMgr = new AlertManager();
+function nextAlert() { alertMgr.close(); }
+
+/* ============================================================
+   PAGE MANAGER & APP LOGIC
+   ============================================================ */
+class App {
+  constructor() {
+    this.currentPage = 'home';
+    this.overlay = document.getElementById('transitionOverlay');
+    this.nextBtnWrap = document.getElementById('nextBtnWrap');
+    this.nextBtn = document.getElementById('nextBtn');
+    this.homeBtnWrap = document.getElementById('homeBtnWrap');
+    this.alertIndex = { 'ha-giang': 0, 'thu-ha': 0 };
+    this.wrongCount = { 'ha-giang': 0, 'thu-ha': 0 };
+    this.dodgeActive = { 'ha-giang': false, 'thu-ha': false };
+  }
+
+  init() {
+    buildStickAndFlowers(document.getElementById('global-decor'),
+      ['#ffd6f0','#d6f0ff','#fff0d6','#d6ffd6','#ffd6ff','#d6ffe4']);
+  }
+
   goTo(page) {
-    const overlay = document.getElementById('transitionOverlay');
-    overlay.classList.add('fade-in');
+    audio.playClick();
+    this.overlay.classList.add('fade-in'); // ✅ Đã SỬA LẠI
+    this.homeBtnWrap.classList.remove('show'); // ✅ Đã SỬA LẠI
+
     setTimeout(() => {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page-' + page).classList.add('active');
-      document.getElementById('nextBtnWrap').classList.remove('show');
-      overlay.classList.remove('fade-in');
-      if (page.includes('birthday')) this.launchCelebration();
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); // ✅ Đã SỬA LẠI
+      this.nextBtnWrap.classList.remove('show'); // ✅ Đã SỬA LẠI
+      ps.clear(); 
+
+      const target = document.getElementById('page-' + page.replace(/_/g, '-'));
+      if (target) target.classList.add('active'); // ✅ Đã SỬA LẠI
+      this.currentPage = page;
+      this.overlay.classList.remove('fade-in'); // ✅ Đã SỬA LẠI
+
+      if (page === 'birthday-giang' || page === 'birthday-thuha' || page === 'guest') {
+        this.homeBtnWrap.classList.add('show'); // ✅ Đã SỬA LẠI
+      }
+
+      if (page === 'ha-giang' || page === 'thu-ha') {
+        this.alertIndex[page] = 0;
+        this.wrongCount[page] = 0;
+        this._resetDodge(page);
+        const cardId = page === 'ha-giang' ? 'hg-card' : 'th-card';
+        const congratsId = page === 'ha-giang' ? 'hg-congrats' : 'th-congrats';
+        const card = document.getElementById(cardId);
+        const congrats = document.getElementById(congratsId);
+        card.style.display = ''; card.style.opacity = '1'; card.style.transform = '';
+        congrats.classList.remove('show'); // ✅ Đã SỬA LẠI
+      }
+
+      if (page === 'birthday-giang') this.startBirthdayPage('giang');
+      else if (page === 'birthday-thuha') this.startBirthdayPage('thuha');
     }, 500);
-  },
+  }
+
+  startBirthdayPage(who) {
+    const H = fxCanvas.height;
+    setTimeout(() => launchBirthdayFireworks(H - 50), 800);
+    setTimeout(() => launchBirthdayFireworks(H - 50), 3500);
+    audio.playSparkle();
+  }
+
   answerTeo(page, correct) {
+    audio.playClick();
     if (!correct) {
+      this.wrongCount[page]++;
+
+      if (this.wrongCount[page] > 3) {
+        if (!this.dodgeActive[page]) this._activateDodge(page);
+        return; 
+      }
+
       const isGiang = page === 'ha-giang';
-      const msgs = isGiang 
-        ? [{m:'Bạn chắc chưa? 🤔', i:'🤔'}, {m:'Bạn suy nghĩ kỹ chưa? 🤨', i:'🤨'}, {m:'Cho bạn chọn lại ấy~ 😄', i:'😊'}]
-        : [{m:'Mẫu hậu chắc chưa? 👸', i:'👸'}, {m:'Mẫu hậu suy nghĩ kỹ chưa? 🤔', i:'🤔'}, {m:'Kính mời mẫu hậu chọn lại 🙏', i:'🙏'}];
-      let idx = this.alertIndex[page];
-      alertMgr.show(msgs[idx].m, msgs[idx].i);
-      this.alertIndex[page] = Math.min(idx + 1, msgs.length - 1);
+      const msgs = isGiang
+        ? [
+            { msg: 'Bạn chắc chưa? 🤔', icon: '🤔' },
+            { msg: 'Bạn suy nghĩ kỹ chưa? 🤨', icon: '🤨' },
+            { msg: 'Cho bạn chọn lại ấy~ 😄', icon: '😊' }
+          ]
+        : [
+            { msg: 'Mẫu hậu chắc chưa? 👸', icon: '👸' },
+            { msg: 'Mẫu hậu suy nghĩ kỹ chưa? 🤔', icon: '🤔' },
+            { msg: 'Kính mời mẫu hậu chọn lại 🙏', icon: '🙏' }
+          ];
+      const idx = Math.min(this.wrongCount[page] - 1, msgs.length - 1);
+      alertMgr.show(msgs[idx].msg, msgs[idx].icon);
     } else {
-      this.showSuccess(page);
+      this.showCorrectAnswer(page);
     }
-  },
-  showSuccess(page) {
-    const isGiang = page === 'ha-giang';
-    document.getElementById(isGiang ? 'hg-card' : 'th-card').style.display = 'none';
-    document.getElementById(isGiang ? 'hg-congrats' : 'th-congrats').classList.add('show');
-    burstHeart(width/2, height/2, '#ff6b9d');
+  }
+
+  _activateDodge(page) {
+    this.dodgeActive[page] = true;
+    const btnId = page === 'ha-giang' ? 'hg-bad-btn' : 'th-bad-btn';
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+
+    const rect = btn.getBoundingClientRect();
+    let bx = rect.left, by = rect.top;
+    const bw = btn.offsetWidth, bh = btn.offsetHeight;
+
+    btn.classList.add('btn-dodge'); // ✅ Đã SỬA LẠI
+    btn.style.left = bx + 'px';
+    btn.style.top  = by + 'px';
+    btn.style.width = bw + 'px';
+    document.body.appendChild(btn); 
+
+    const margin = 16;
+    const W = () => window.innerWidth;
+    const H = () => window.innerHeight;
+
+    function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+
+    function jumpAway() {
+      bx = clamp(margin + Math.random() * (W() - bw - margin * 2), margin, W() - bw - margin);
+      by = clamp(margin + Math.random() * (H() - bh - margin * 2 - 120), margin, H() - bh - margin - 120);
+      btn.style.left = bx + 'px';
+      btn.style.top  = by + 'px';
+      audio.playSparkle();
+    }
+
+    const onMouseEnter = () => jumpAway();
+    const onTouchStart = () => jumpAway();
+    const onClick = e => { e.stopPropagation(); jumpAway(); };
+
+    btn.addEventListener('mouseenter', onMouseEnter);
+    btn.addEventListener('touchstart', onTouchStart, { passive: true });
+    btn.addEventListener('click', onClick);
+
+    btn._dodgeCleanup = () => {
+      btn.removeEventListener('mouseenter', onMouseEnter);
+      btn.removeEventListener('touchstart', onTouchStart);
+      btn.removeEventListener('click', onClick);
+    };
+  }
+
+  _resetDodge(page) {
+    this.dodgeActive[page] = false;
+    const btnId = page === 'ha-giang' ? 'hg-bad-btn' : 'th-bad-btn';
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+
+    if (btn._dodgeCleanup) { btn._dodgeCleanup(); btn._dodgeCleanup = null; }
+
+    btn.classList.remove('btn-dodge'); // ✅ Đã SỬA LẠI: Lấy lại màu của nút
+    btn.style.cssText = '';
+    const groupId = page === 'ha-giang' ? 'hg-card' : 'th-card';
+    const group = document.querySelector(`#${groupId} .btn-group`);
+    if (group && !group.contains(btn)) group.appendChild(btn);
+  }
+
+  showCorrectAnswer(page) {
+    this._resetDodge(page); 
+    const cardId = page === 'ha-giang' ? 'hg-card' : 'th-card';
+    const congratsId = page === 'ha-giang' ? 'hg-congrats' : 'th-congrats';
+    const card = document.getElementById(cardId);
+    const congrats = document.getElementById(congratsId);
+    const targetPage = page === 'ha-giang' ? 'birthday-giang' : 'birthday-thuha';
+
+    card.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    card.style.opacity = '0';
+    card.style.transform = 'scale(0.8)';
+    setTimeout(() => { card.style.display = 'none'; card.style.transition = ''; }, 700);
+
     setTimeout(() => {
-      document.getElementById('nextBtnWrap').classList.add('show');
-      document.getElementById('nextBtn').onclick = () => this.goTo(isGiang ? 'birthday-giang' : 'birthday-thuha');
-    }, 1500);
-  },
-  launchCelebration() {
-    let count = 0;
-    const interval = setInterval(() => {
-      burstHeart(Math.random() * width, Math.random() * height * 0.5, `hsl(${Math.random()*360}, 70%, 70%)`);
-      if (++count > 10) clearInterval(interval);
-    }, 500);
-  }
-};
+      audio.playSparkle();
+      const cx = fxCanvas.width / 2, cy = fxCanvas.height / 2;
+      const colors = ['#ffd6f0','#ffe4a0','#d6eeff','#e4d6ff','#c0ffe0'];
+      for (let i = 0; i < PERF.centerBurstPts; i++) {
+        setTimeout(() => {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 2 + Math.random() * 4;
+          ps.add(new Particle(cx, cy, {
+            vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+            r: 2 + Math.random() * 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alpha: 1, decay: 0.013, gravity: 0.04
+          }));
+        }, i * 30); 
+      }
+    }, 700);
 
-/* --- LOOP CHÍNH --- */
-function animate() {
-  drawGalaxy();
-  fxCtx.clearRect(0, 0, width, height);
-  
-  for (let i = activeParticles.length - 1; i >= 0; i--) {
-    let p = activeParticles[i];
-    p.x += p.vx; p.y += p.vy; p.vy += p.gravity;
-    p.alpha -= p.decay;
-    
-    if (p.alpha <= 0) {
-      p.active = false;
-      particlePool.push(activeParticles.splice(i, 1)[0]);
-      continue;
-    }
-    
-    fxCtx.globalAlpha = p.alpha;
-    fxCtx.fillStyle = p.color;
-    if (p.isHeart) {
-        let s = p.r * 2;
-        fxCtx.beginPath();
-        fxCtx.moveTo(p.x, p.y);
-        fxCtx.bezierCurveTo(p.x-s, p.y-s, p.x-s*2, p.y+s, p.x, p.y+s*2);
-        fxCtx.bezierCurveTo(p.x+s*2, p.y+s, p.x+s, p.y-s, p.x, p.y);
-        fxCtx.fill();
-    } else {
-        fxCtx.beginPath(); fxCtx.arc(p.x, p.y, p.r, 0, Math.PI*2); fxCtx.fill();
-    }
+    setTimeout(() => { congrats.classList.add('show'); }, 1200); // ✅ Đã SỬA LẠI
+
+    const H = fxCanvas.height;
+    setTimeout(() => { launchHeartFireworks(H - 80, PERF.heartLaunchCount); audio.playSparkle(); }, 1500);
+    setTimeout(() => { launchHeartFireworks(H - 80, PERF.heartLaunchCount - 1); }, 3400);
+
+    setTimeout(() => {
+      this.nextBtnWrap.classList.add('show'); // ✅ Đã SỬA LẠI
+      this.nextBtn.onclick = () => this.goTo(targetPage);
+    }, 2500);
   }
+}
+
+const app = new App();
+
+/* ============================================================
+   MAIN ANIMATION LOOP 
+   ============================================================ */
+let lastFrameTime = 0;
+const TARGET_FPS = isLowEnd ? 40 : 60;
+const FRAME_MS = 1000 / TARGET_FPS;
+
+function animate(time) {
   requestAnimationFrame(animate);
+  if (time - lastFrameTime < FRAME_MS) return;
+  lastFrameTime = time;
+
+  galaxy.draw();
+
+  fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+
+  for (let i = rockets.length - 1; i >= 0; i--) {
+    rockets[i].update();
+    rockets[i].draw(fxCtx);
+    if (!rockets[i].alive) rockets.splice(i, 1);
+  }
+
+  ps.update();
+  ps.draw(fxCtx);
+
+  if (Math.random() < PERF.ambientProb) {
+    const spColors = ['#ffe8f5','#e8f0ff','#fff8e8','#e8fff8'];
+    ps.add(new Particle(
+      Math.random() * fxCanvas.width,
+      Math.random() * fxCanvas.height * 0.5,
+      { vx: (Math.random()-0.5) * 0.5, vy: -0.3 - Math.random() * 0.5,
+        r: 1 + Math.random() * 2,
+        color: spColors[Math.floor(Math.random() * spColors.length)],
+        alpha: 0.6, decay: 0.009, gravity: 0 }
+    ));
+  }
 }
 
-// Khởi tạo các trang trí hoa lá
-function initDecor() {
-  const containers = ['hg-decor', 'th-decor', 'bdg-decor', 'bdth-decor', 'guest-decor'];
-  containers.forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.innerHTML = '<div class="flower-row">' + '🌸'.repeat(isMobile() ? 5 : 10).split('').map(f => `<span style="font-size:2rem; cursor:pointer" onclick="burstHeart(event.clientX, event.clientY, '#ffb4e6')">${f}</span>`).join('') + '</div>';
-  });
-}
+/* ============================================================
+   INIT
+   ============================================================ */
+document.addEventListener('click', () => { if (!audio.ready) audio.init(); }, { once: true });
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('btn') || e.target.classList.contains('btn-home') || e.target.closest('.carousel-item') || e.target.closest('.guest-avatar') || e.target.closest('.flower-wrap') || e.target.closest('.clover-row > div')) {
+    audio.playSparkle();
+  }
+});
 
-function isMobile() { return width < 600; }
-initDecor();
-animate();
+app.init();
+animate(0);
 </script>
 </body>
 </html>
