@@ -66,7 +66,7 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
   position: fixed;
   top: 24px;
   left: 24px;
-  z-index: 50;
+  z-index: 100;
   opacity: 0;
   pointer-events: none;
   transform: translateY(-20px);
@@ -148,10 +148,10 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
    GUEST PAGE CSS 
    ============================================================ */
 #page-guest .guest-top{position:fixed;top:0;left:0;right:0;text-align:center;padding:24px;z-index:20;
-  background:linear-gradient(to bottom,rgba(5,0,16,0.8),transparent);pointer-events:none;}
+  background:linear-gradient(to bottom,rgba(5,0,16,0.9), rgba(5,0,16,0.6) 80%, transparent);pointer-events:none;}
 #page-guest .guest-top p{font-family:'Dancing Script',cursive;font-size:clamp(0.9rem,2.5vw,1.3rem);
-  color:#fff;text-shadow:0 0 20px rgba(255,180,230,0.8);line-height:1.6;}
-.guest-halves{display:flex;width:100%;height:100%;position:relative;}
+  color:#fff;text-shadow:0 0 20px rgba(255,180,230,0.8);line-height:1.6; margin-top: 10px;}
+.guest-halves{display:flex;width:100%;height:100%;position:relative; margin-top: 60px;}
 .guest-half{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
   padding:20px;position:relative;}
 .guest-half h2{font-family:'Dancing Script',cursive;font-size:2rem;color:#fff;
@@ -170,8 +170,8 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
   border: 2px solid rgba(255, 255, 255, 0.5); overflow: hidden;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
   transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-  cursor: pointer; 
-  /* pointer-events: all; */
+  cursor: pointer;
+   /* pointer-events: all; */
 }
 .guest-avatar img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .ha-avatar:hover {
@@ -211,41 +211,53 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
 }
 .carousel-item img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 
-/* Thu Hà: Glow Pink Pastel */
 .carousel-ha .carousel-item:hover, .carousel-ha .carousel-item:active {
   scale: 1.15;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 182, 193, 0.9), 0 0 80px rgba(255, 182, 193, 0.6);
   border-color: rgba(255, 182, 193, 1);
 }
-
-/* Hà Giang: Glow Gold/Yellow Pastel */
 .carousel-giang .carousel-item:hover, .carousel-giang .carousel-item:active {
   scale: 1.15;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 228, 160, 0.9), 0 0 80px rgba(255, 228, 160, 0.6);
   border-color: rgba(255, 228, 160, 1);
 }
-
 @keyframes spin3D { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
 
+
+/* ============================================================
+   GIẢI QUYẾT LỖI GIAO DIỆN MOBILE (OVERLAP)
+   ============================================================ */
 @media(max-width:600px){
   .glass-card{padding:28px 20px;width:95vw;}
   .btn{padding:12px 22px;font-size:0.9rem;}
-  .guest-halves{flex-direction:column;}
-  .guest-divider{width:80%;height:2px;align-self:center;margin: 10px 0;}
-  .next-btn-wrap{right:20px;bottom:140px;}
-  .bd-header h1{font-size:1.5rem;}
   
-  .carousel-scene { width: 150px; height: 225px; transform: translate(-50%, -50%) rotateX(-5deg); }
-  .carousel-item { width: 150px; height: 225px; transform: rotateY(calc(var(--i) * 72deg)) translateZ(180px); }
+  /* Căn chỉnh header sinh nhật ĐẨY XUỐNG DƯỚI NÚT HOME */
+  .bd-header { top: 65px; width: 100%; padding: 0 15px; }
+  .bd-header h1 { font-size: 1.4rem; margin-bottom: 5px; }
+  .bd-header p { font-size: 0.85rem; }
   
-  .guest-avatar { width: 70px; height: 70px; margin-bottom: 8px; }
+  /* Căn chỉnh vòng xoay 3D NÉ CHỮ BÊN TRÊN VÀ NGƯỜI QUE BÊN DƯỚI */
+  .carousel-scene { width: 120px; height: 180px; top: 48%; transform: translate(-50%, -50%) rotateX(-5deg); }
+  .carousel-item { width: 120px; height: 180px; transform: rotateY(calc(var(--i) * 72deg)) translateZ(140px); }
+  
+  /* Sửa lỗi trang khách mời (Cuộn mượt mà, chừa chỗ cho Nút Home) */
+  #page-guest { display: block !important; padding-top: 60px; }
+  #page-guest .guest-top { position: relative; padding: 10px 20px; background: none; }
+  .guest-top p { font-size: 1rem; margin-top: 0; }
+  
+  .guest-halves { flex-direction: column; margin-top: 10px; padding-bottom: 160px; height: auto; } 
+  .guest-divider { width: 80%; height: 2px; align-self: center; margin: 15px 0; }
+  .guest-half { padding: 10px 15px; }
   .guest-half h2 { font-size: 1.6rem; margin-bottom: 8px; }
-  .guest-glass { padding: 16px; }
+  .guest-avatar { width: 70px; height: 70px; margin-bottom: 10px; }
+  .guest-glass { padding: 16px; max-width: 95vw; }
   .guest-glass p { font-size: 0.85rem; }
   
-  /* Căn chỉnh nút Home trên điện thoại */
-  .btn-home-wrap { top: 16px; left: 16px; }
-  .btn-home { padding: 8px 16px; font-size: 0.85rem; }
+  .next-btn-wrap{right:20px;bottom:140px;}
+  
+  /* Căn lại nút home trên mobile (Góc trên cùng bên trái) */
+  .btn-home-wrap { top: 12px; left: 12px; }
+  .btn-home { padding: 8px 14px; font-size: 0.8rem; }
 }
 
 /* Dodge button */
@@ -355,7 +367,7 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
   </div>
 </div>
 
-<div class="page" id="page-guest">
+<div class="page" id="page-guest" style="overflow-y: auto; overflow-x: hidden;">
   <div class="guest-top">
     <p>🌟 Cảm ơn mọi người đã cùng chúc mừng sinh nhật của hai người xinh đẹp nhất hôm nay:<br>
     <strong style="color:#ffd6f0;">Thị Thu Hà</strong> và <strong style="color:#ffe4a0;">Thị Hà Giang</strong>! 🌟</p>
@@ -374,9 +386,7 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
         </div>
       </div>
     </div>
-    
     <div class="guest-divider"></div>
-    
     <div class="guest-half">
       <h2>🌟 Hà Giang</h2>
       <div class="guest-avatar giang-avatar">
@@ -395,15 +405,15 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;}
 
 <script>
 /* ============================================================
-   PERFORMANCE: Detect low-end device
+   PERFORMANCE: Tối ưu siêu tốc cho máy yếu
    ============================================================ */
 const isLowEnd = navigator.hardwareConcurrency <= 4 || 
                  /Android|iPhone|iPad/i.test(navigator.userAgent);
 const PERF = {
-  starCount:        isLowEnd ? 150 : 300,   // ✅ Tăng số lượng sao
-  shootingStarCountMax: isLowEnd ? 3 : 6, // ✅ Giới hạn số sao băng
-  shootingStarAppearProb: isLowEnd ? 0.005 : 0.012, // ✅ Tần suất sao băng
-  ambientProb:      isLowEnd ? 0.015: 0.035, // Giữ sparkles trôi nổi
+  starCount:        isLowEnd ? 150 : 300,   
+  shootingStarCountMax: isLowEnd ? 6 : 15, 
+  shootingStarAppearProb: isLowEnd ? 0.015 : 0.04, 
+  ambientProb:      isLowEnd ? 0.015: 0.035, 
 
   heartBurstPts:    isLowEnd ? 18  : 36,    
   burstSparkles:    isLowEnd ? 6   : 12,    
@@ -418,7 +428,7 @@ const PERF = {
 };
 
 /* ============================================================
-   GALAXY BACKGROUND ENGINE
+   GALAXY BACKGROUND ENGINE (ĐÃ TỐI ƯU CỰC MẠNH)
    ============================================================ */
 const bgCanvas = document.getElementById('bgCanvas');
 const bgCtx = bgCanvas.getContext('2d');
@@ -435,10 +445,13 @@ window.addEventListener('resize', () => { resizeCanvases(); galaxy.init(); });
 class GalaxyEngine {
   constructor() {
     this.stars = [];
-    this.nebulae = [];
-    this.shootingStars = []; // ✅ Mảng các sao băng
+    this.shootingStars = [];
     this.time = 0;
     this.mouse = { x: bgCanvas.width / 2, y: bgCanvas.height / 2 };
+    
+    this.bgCache = document.createElement('canvas');
+    this.bgCacheCtx = this.bgCache.getContext('2d', { alpha: false });
+
     this.init();
     window.addEventListener('mousemove', e => {
       this.mouse.x = e.clientX;
@@ -448,23 +461,48 @@ class GalaxyEngine {
 
   init() {
     const W = bgCanvas.width, H = bgCanvas.height;
+    
+    this.bgCache.width = W;
+    this.bgCache.height = H;
+
+    const bg = this.bgCacheCtx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#06001a');
+    bg.addColorStop(0.4, '#0a0020');
+    bg.addColorStop(0.7, '#08001c');
+    bg.addColorStop(1, '#050012');
+    this.bgCacheCtx.fillStyle = bg;
+    this.bgCacheCtx.fillRect(0, 0, W, H);
+
+    const nebulae = [
+      { x: W * 0.2, y: H * 0.3, rx: W * 0.35, ry: H * 0.3, c1: 'rgba(180,100,220,0.10)', c2: 'rgba(180,100,220,0)' },
+      { x: W * 0.75, y: H * 0.6, rx: W * 0.4, ry: H * 0.35, c1: 'rgba(100,150,255,0.08)', c2: 'rgba(100,150,255,0)' },
+    ];
+    nebulae.forEach(n => {
+      const grad = this.bgCacheCtx.createRadialGradient(n.x, n.y, 0, n.x, n.y, Math.max(n.rx, n.ry));
+      grad.addColorStop(0, n.c1);
+      grad.addColorStop(1, n.c2);
+      this.bgCacheCtx.save();
+      this.bgCacheCtx.scale(1, n.ry / n.rx);
+      this.bgCacheCtx.fillStyle = grad;
+      this.bgCacheCtx.beginPath();
+      this.bgCacheCtx.arc(n.x, n.y * (n.rx / n.ry), n.rx, 0, Math.PI * 2);
+      this.bgCacheCtx.fill();
+      this.bgCacheCtx.restore();
+    });
+
     this.stars = [];
     const colors = ['#ffffff','#ffe8f5','#ffd6f0','#e8d6ff','#d6eeff','#fff5d6','#d6ffe8'];
     for (let i = 0; i < PERF.starCount; i++) {
       this.stars.push({
         x: Math.random() * W, y: Math.random() * H,
-        r: Math.random() * 2.2 + 0.3, // ✅ Tăng nhẹ phạm vi kích thước
-        twinkleSpeed: Math.random() * 0.06 + 0.01, // ✅ Tinh chỉnh tốc độ lấp lánh
+        r: Math.random() * 2.2 + 0.3,
+        twinkleSpeed: Math.random() * 0.06 + 0.01,
         twinkleOffset: Math.random() * Math.PI * 2,
         color: colors[Math.floor(Math.random() * colors.length)],
         layer: Math.random() * 3 | 0,
-        hasGlow: Math.random() < (isLowEnd ? 0.05 : 0.1) // ✅ Chỉ ~10% sao lớn có bóng mờ
+        hasGlow: Math.random() < (isLowEnd ? 0.05 : 0.1) 
       });
     }
-    this.nebulae = [
-      { x: W * 0.2, y: H * 0.3, rx: W * 0.35, ry: H * 0.3, c1: 'rgba(180,100,220,0.10)', c2: 'rgba(180,100,220,0)' },
-      { x: W * 0.75, y: H * 0.6, rx: W * 0.4, ry: H * 0.35, c1: 'rgba(100,150,255,0.08)', c2: 'rgba(100,150,255,0)' },
-    ];
     this.shootingStars = [];
   }
 
@@ -472,77 +510,45 @@ class GalaxyEngine {
     const W = bgCanvas.width, H = bgCanvas.height;
     this.time += 0.016;
 
-    const bg = bgCtx.createLinearGradient(0, 0, W, H);
-    bg.addColorStop(0, '#06001a');
-    bg.addColorStop(0.4, '#0a0020');
-    bg.addColorStop(0.7, '#08001c');
-    bg.addColorStop(1, '#050012');
-    bgCtx.fillStyle = bg;
-    bgCtx.fillRect(0, 0, W, H);
-
-    this.nebulae.forEach(n => {
-      const grad = bgCtx.createRadialGradient(n.x, n.y, 0, n.x, n.y, Math.max(n.rx, n.ry));
-      grad.addColorStop(0, n.c1);
-      grad.addColorStop(1, n.c2);
-      bgCtx.save();
-      bgCtx.scale(1, n.ry / n.rx);
-      bgCtx.fillStyle = grad;
-      bgCtx.beginPath();
-      bgCtx.arc(n.x, n.y * (n.rx / n.ry), n.rx, 0, Math.PI * 2);
-      bgCtx.fill();
-      bgCtx.restore();
-    });
+    bgCtx.drawImage(this.bgCache, 0, 0);
 
     const mx = (this.mouse.x / W - 0.5) * 0.02;
     const my = (this.mouse.y / H - 0.5) * 0.02;
 
-    // Phân loại sao để vẽ tối ưu
-    const glowStars = [];
-    const normalStars = [];
-    this.stars.forEach(s => (s.hasGlow ? glowStars : normalStars).push(s));
-    
-    // 1. Vẽ sao thường (không save/restore, không bóng mờ - rất nhanh)
-    normalStars.forEach(s => {
+    this.stars.forEach(s => {
       const twine = 0.5 + 0.5 * (0.5 + 0.5 * Math.sin(this.time * s.twinkleSpeed * 60 + s.twinkleOffset));
       const px = s.x + mx * (s.layer + 1) * 8;
       const py = s.y + my * (s.layer + 1) * 8;
-      bgCtx.globalAlpha = twine; // Lấp lánh hơn
+      
+      if (s.hasGlow) {
+        bgCtx.globalAlpha = twine * 0.3; 
+        bgCtx.fillStyle = s.color;
+        bgCtx.beginPath();
+        bgCtx.arc(px, py, s.r * twine * 3, 0, Math.PI * 2);
+        bgCtx.fill();
+      }
+
+      bgCtx.globalAlpha = twine; 
       bgCtx.fillStyle = s.color;
       bgCtx.beginPath();
       bgCtx.arc(px, py, s.r * twine, 0, Math.PI * 2);
       bgCtx.fill();
     });
-    bgCtx.globalAlpha = 1; // reset alpha
+    bgCtx.globalAlpha = 1;
 
-    // 2. Vẽ sao có bóng (chỉ save/restore cho 10% sao lớn - đảm bảo hiệu năng)
-    glowStars.forEach(s => {
-      const twine = 0.5 + 0.5 * (0.5 + 0.5 * Math.sin(this.time * s.twinkleSpeed * 60 + s.twinkleOffset));
-      const px = s.x + mx * (s.layer + 1) * 8;
-      const py = s.y + my * (s.layer + 1) * 8;
-      bgCtx.save();
-      bgCtx.shadowBlur = 5;
-      bgCtx.shadowColor = s.color;
-      bgCtx.globalAlpha = twine;
-      bgCtx.fillStyle = s.color;
-      bgCtx.beginPath();
-      bgCtx.arc(px, py, s.r * twine, 0, Math.PI * 2);
-      bgCtx.fill();
-      bgCtx.restore();
-    });
-
-    // ✅ Logic thêm nhiều sao băng đồng thời
     if (Math.random() < PERF.shootingStarAppearProb && this.shootingStars.length < PERF.shootingStarCountMax) {
+      const angle = Math.random() * Math.PI * 2; 
+      const speed = 7 + Math.random() * 8; 
       this.shootingStars.push({
-        x: Math.random() * W * 0.5,
-        y: Math.random() * H * 0.5,
-        vx: 4 + Math.random() * 5, // Di chuyển nhanh hơn
-        vy: 2 + Math.random() * 4,
+        x: Math.random() * W, 
+        y: Math.random() * H,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
         life: 1,
-        color: Math.random() < 0.2 ? '#ffe0f0' : '#ffffff' // Màu mờ dần
+        color: Math.random() < 0.2 ? '#ffe0f0' : (Math.random() < 0.4 ? '#e0f0ff' : '#ffffff')
       });
     }
 
-    // Vẽ và cập nhật tất cả sao băng trong mảng
     this.shootingStars = this.shootingStars.filter(ss => ss.life > 0);
     this.shootingStars.forEach(ss => {
       bgCtx.save();
@@ -557,7 +563,7 @@ class GalaxyEngine {
       
       ss.x += ss.vx;
       ss.y += ss.vy;
-      ss.life -= 0.03; // Sao băng nhanh hơn
+      ss.life -= 0.025; 
     });
   }
 }
@@ -981,11 +987,11 @@ class AlertManager {
     this.msgEl.textContent = msg;
     this.iconEl.textContent = icon || '💕';
     this.onClose = onClose || null;
-    this.el.classList.add('show'); // ✅ Đã SỬA LẠI: Dùng classList để không mất các class gốc
+    this.el.classList.add('show');
     audio.playClick();
   }
   close() {
-    this.el.classList.remove('show'); // ✅ Đã SỬA LẠI
+    this.el.classList.remove('show');
     if (this.onClose) { this.onClose(); this.onClose = null; }
   }
 }
@@ -1014,21 +1020,22 @@ class App {
 
   goTo(page) {
     audio.playClick();
-    this.overlay.classList.add('fade-in'); // ✅ Đã SỬA LẠI
-    this.homeBtnWrap.classList.remove('show'); // ✅ Đã SỬA LẠI
+    this.overlay.classList.add('fade-in');
+    
+    this.homeBtnWrap.classList.remove('show'); 
 
     setTimeout(() => {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); // ✅ Đã SỬA LẠI
-      this.nextBtnWrap.classList.remove('show'); // ✅ Đã SỬA LẠI
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      this.nextBtnWrap.classList.remove('show');
       ps.clear(); 
 
       const target = document.getElementById('page-' + page.replace(/_/g, '-'));
-      if (target) target.classList.add('active'); // ✅ Đã SỬA LẠI
+      if (target) target.classList.add('active');
       this.currentPage = page;
-      this.overlay.classList.remove('fade-in'); // ✅ Đã SỬA LẠI
+      this.overlay.classList.remove('fade-in');
 
       if (page === 'birthday-giang' || page === 'birthday-thuha' || page === 'guest') {
-        this.homeBtnWrap.classList.add('show'); // ✅ Đã SỬA LẠI
+        this.homeBtnWrap.classList.add('show');
       }
 
       if (page === 'ha-giang' || page === 'thu-ha') {
@@ -1040,7 +1047,7 @@ class App {
         const card = document.getElementById(cardId);
         const congrats = document.getElementById(congratsId);
         card.style.display = ''; card.style.opacity = '1'; card.style.transform = '';
-        congrats.classList.remove('show'); // ✅ Đã SỬA LẠI
+        congrats.classList.remove('show');
       }
 
       if (page === 'birthday-giang') this.startBirthdayPage('giang');
@@ -1094,7 +1101,7 @@ class App {
     let bx = rect.left, by = rect.top;
     const bw = btn.offsetWidth, bh = btn.offsetHeight;
 
-    btn.classList.add('btn-dodge'); // ✅ Đã SỬA LẠI
+    btn.classList.add('btn-dodge');
     btn.style.left = bx + 'px';
     btn.style.top  = by + 'px';
     btn.style.width = bw + 'px';
@@ -1137,7 +1144,7 @@ class App {
 
     if (btn._dodgeCleanup) { btn._dodgeCleanup(); btn._dodgeCleanup = null; }
 
-    btn.classList.remove('btn-dodge'); // ✅ Đã SỬA LẠI: Lấy lại màu của nút
+    btn.classList.remove('btn-dodge');
     btn.style.cssText = '';
     const groupId = page === 'ha-giang' ? 'hg-card' : 'th-card';
     const group = document.querySelector(`#${groupId} .btn-group`);
@@ -1175,14 +1182,14 @@ class App {
       }
     }, 700);
 
-    setTimeout(() => { congrats.classList.add('show'); }, 1200); // ✅ Đã SỬA LẠI
+    setTimeout(() => { congrats.classList.add('show'); }, 1200);
 
     const H = fxCanvas.height;
     setTimeout(() => { launchHeartFireworks(H - 80, PERF.heartLaunchCount); audio.playSparkle(); }, 1500);
     setTimeout(() => { launchHeartFireworks(H - 80, PERF.heartLaunchCount - 1); }, 3400);
 
     setTimeout(() => {
-      this.nextBtnWrap.classList.add('show'); // ✅ Đã SỬA LẠI
+      this.nextBtnWrap.classList.add('show');
       this.nextBtn.onclick = () => this.goTo(targetPage);
     }, 2500);
   }
